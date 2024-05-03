@@ -1,0 +1,258 @@
+{
+	"info": {
+		"_postman_id": "b879cf6a-fe5c-4571-b9e2-99fab41382a5",
+		"name": "ClinicTesting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23050188"
+	},
+	"item": [
+		{
+			"name": "Clinic Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check Clinic Status Code\",()=>{\r",
+							"    pm.expect(pm.response.code).to.eql(200)\r",
+							"\r",
+							"})\r",
+							"pm.test(\"Time Check\",()=>{\r",
+							" pm.expect(pm.response.responseTime).to.be.below(1000)\r",
+							"\r",
+							"})\r",
+							"pm.test(\"Check Clinic Status\",()=>{\r",
+							"    pm.expect(pm.response.status).to.eql(\"OK\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Check Clinic json\",()=>{\r",
+							"    pm.expect(pm.response.json()).to.be.a(\"object\")\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.kyla.com/drchrono/public/api/v1/schedule?clinicId={{BlossomClinicId}}&date=2024-04-30&examRoom={{ExamId}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"kyla",
+						"com"
+					],
+					"path": [
+						"drchrono",
+						"public",
+						"api",
+						"v1",
+						"schedule"
+					],
+					"query": [
+						{
+							"key": "clinicId",
+							"value": "{{BlossomClinicId}}"
+						},
+						{
+							"key": "date",
+							"value": "2024-04-30"
+						},
+						{
+							"key": "examRoom",
+							"value": "{{ExamId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SelectTime",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check status code\",()=>{\r",
+							"    pm.expect(pm.response.code).to.eql(200)\r",
+							"})\r",
+							"pm.test(\"Check Time\",()=>{\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500)\r",
+							"})\r",
+							"pm.test(\"Check Status\", ()=>{\r",
+							"    pm.expect(pm.response.status).to.eql(\"OK\")\r",
+							"\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.kyla.com/mobile/public/api/v1/appointments/reasons/with-urgency?consultationType={{SetClinicTime}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"kyla",
+						"com"
+					],
+					"path": [
+						"mobile",
+						"public",
+						"api",
+						"v1",
+						"appointments",
+						"reasons",
+						"with-urgency"
+					],
+					"query": [
+						{
+							"key": "consultationType",
+							"value": "{{SetClinicTime}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.kyla.com/mobile/api/v4/auth/signup/check?email={{RegisterEmail}}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"kyla",
+						"com"
+					],
+					"path": [
+						"mobile",
+						"api",
+						"v4",
+						"auth",
+						"signup",
+						"check"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{RegisterEmail}}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SendPost",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\":\"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\":\"{{$randomEmail}}\",\r\n    \"number\": \"{{$randomPhoneNumber}}\",\r\n    \"phoneNumber\": \"+12345678999\",\r\n    \"sex\": \"MALE\",\r\n    \"dateOfBirth\": \"1994-01-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.kyla.com/mobile/api/v4/auth/signup/check",
+					"protocol": "https",
+					"host": [
+						"api",
+						"kyla",
+						"com"
+					],
+					"path": [
+						"mobile",
+						"api",
+						"v4",
+						"auth",
+						"signup",
+						"check"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BlossomClinicId",
+			"value": "110544"
+		},
+		{
+			"key": "ExamId",
+			"value": "1"
+		},
+		{
+			"key": "SetClinicTime",
+			"value": "in-clinic"
+		},
+		{
+			"key": "RegisterEmail",
+			"value": "email",
+			"type": "string"
+		}
+	]
+}
